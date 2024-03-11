@@ -1,0 +1,10 @@
+.quit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0.3rem;
+    cursor: pointer;
+    color: #e8e6e3;
+    text-decoration: none;
+    text-transform: uppercase;
+}

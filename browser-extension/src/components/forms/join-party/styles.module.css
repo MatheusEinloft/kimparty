@@ -1,0 +1,10 @@
+.error {
+    color: red;
+    display: block;
+    font-weight: bold;
+}
+
+.form {
+    display: grid;
+    align-items: center;
+}
