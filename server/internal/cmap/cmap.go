@@ -19,13 +19,13 @@ func (cm *ConMap[V]) Set(key string, value V) {
 func (cm *ConMap[V]) Remove(key string) {
 	cm.in.Remove(key)
 
-    if cm.in.Count()%200 == 0  {
-        newMap := conMap.New[V]()
+	if cm.in.Count()%200 == 0 {
+		newMap := conMap.New[V]()
 
-        for item := range cm.in.IterBuffered() {
-            newMap.Set(item.Key, item.Val)
-        }
-    }
+		for item := range cm.in.IterBuffered() {
+			newMap.Set(item.Key, item.Val)
+		}
+	}
 }
 
 func (cm *ConMap[V]) Count() int {
@@ -46,26 +46,26 @@ func (cm *ConMap[V]) IterWithKey() <-chan Tuple[string, V] {
 }
 
 func (cm *ConMap[V]) Iter() <-chan V {
-    ch := make(chan V)
+	ch := make(chan V)
 
-    go func() {
-        for item := range cm.in.IterBuffered() {
-            ch <- item.Val
-        }
-        close(ch)
-    }()
+	go func() {
+		for item := range cm.in.IterBuffered() {
+			ch <- item.Val
+		}
+		close(ch)
+	}()
 
-    return ch
+	return ch
 }
 
 func (cm *ConMap[V]) Values() []V {
-    var all []V
+	var all []V
 
-    for item := range cm.in.IterBuffered() {
-        all = append(all, item.Val)
-    }
+	for item := range cm.in.IterBuffered() {
+		all = append(all, item.Val)
+	}
 
-    return all
+	return all
 }
 
 func New[V any]() ConcurrentMap[V] {

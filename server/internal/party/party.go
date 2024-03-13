@@ -21,7 +21,7 @@ type Party struct {
 	ID          string `json:"id"`
 	URL         string `json:"url"`
 	CreatedAt   string `json:"created_at"`
-	Capacity    uint8    `json:"capacity"`
+	Capacity    uint8  `json:"capacity"`
 	connections cmap.ConcurrentMap[*gws.Conn]
 }
 

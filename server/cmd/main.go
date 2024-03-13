@@ -8,21 +8,20 @@ import (
 	"kimparty/internal/websocket"
 )
 
-
 func main() {
-    port := config.GetPort()
-    server := server.NewServer(port)
+	port := config.GetPort()
+	server := server.NewServer(port)
 
-    partyService := party.NewService()
-    upgrader := websocket.NewUpgrader()
+	partyService := party.NewService()
+	upgrader := websocket.NewUpgrader()
 
-    createPartyHandler := handler.NewCreatePartyHandler(partyService)
-    findPartyHandler := handler.NewFindPartyHandler(partyService)
-    joinPartyHandler := handler.NewJoinPartyHandler(partyService, upgrader)
+	createPartyHandler := handler.NewCreatePartyHandler(partyService)
+	findPartyHandler := handler.NewFindPartyHandler(partyService)
+	joinPartyHandler := handler.NewJoinPartyHandler(partyService, upgrader)
 
-    server.AddHandler(createPartyHandler)
-    server.AddHandler(findPartyHandler)
-    server.AddHandler(joinPartyHandler)
+	server.AddHandler(createPartyHandler)
+	server.AddHandler(findPartyHandler)
+	server.AddHandler(joinPartyHandler)
 
-    server.Start()
+	server.Start()
 }

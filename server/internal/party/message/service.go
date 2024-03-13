@@ -12,14 +12,14 @@ func NewLeavedMessage(partyID string, userID string) ([]byte, error) {
 }
 
 func NewFromUserMessage(partyID string, userID string, msgBytes []byte) ([]byte, error) {
-    parsedMsg, err := MessageFromJSON(msgBytes)
+	parsedMsg, err := MessageFromJSON(msgBytes)
 
-    if err != nil {
-        return nil, err
-    }
+	if err != nil {
+		return nil, err
+	}
 
-    parsedMsg.PartyID = partyID
-    parsedMsg.UserID = userID
+	parsedMsg.PartyID = partyID
+	parsedMsg.UserID = userID
 
-    return parsedMsg.ToJSON()
+	return parsedMsg.ToJSON()
 }

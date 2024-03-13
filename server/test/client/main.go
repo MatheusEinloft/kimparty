@@ -29,7 +29,7 @@ func init() {
 	flag.IntVar(&port, "port", 3000, "Port on which server is running")
 	flag.IntVar(&parties, "parties", 1, "Parties to create")
 	flag.IntVar(&users, "users", 2, "Users to create")
-    flag.BoolVar(&logMsg, "log-msg", true, "Log messages received from the connections")
+	flag.BoolVar(&logMsg, "log-msg", true, "Log messages received from the connections")
 
 	flag.Parse()
 
@@ -43,7 +43,7 @@ func init() {
 
 	log.Printf("Parties: %d", parties)
 	log.Printf("Users: %d", users)
-    log.Printf("Log messages: %v", logMsg)
+	log.Printf("Log messages: %v", logMsg)
 }
 
 func main() {
@@ -55,7 +55,7 @@ func main() {
 		log.Printf("Party [%v - %s] created", i, pt.ID)
 
 		for j := 0; j < users; j++ {
-			username := fmt.Sprintf("test-%v-%v",i, j)
+			username := fmt.Sprintf("test-%v-%v", i, j)
 
 			go func(roomID, username string) {
 				defer wg.Done()
@@ -112,14 +112,14 @@ func connectToParty(ptID string, username string) {
 				log.Printf("User [%s] error reading message: %s", username, string(message))
 				return
 			}
-        
-            if string(message) == "pong" {
-                continue
-            }
 
-            if logMsg {
-                log.Printf("User [%s] received message: %s", username, string(message))
-            }
+			if string(message) == "pong" {
+				continue
+			}
+
+			if logMsg {
+				log.Printf("User [%s] received message: %s", username, string(message))
+			}
 		}
 	}()
 

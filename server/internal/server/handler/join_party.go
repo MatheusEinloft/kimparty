@@ -17,7 +17,7 @@ type JoinPartyHandler struct {
 func NewJoinPartyHandler(partyService *party.Service, upgrader *gws.Upgrader) server.Handler {
 	return &JoinPartyHandler{
 		partyService: partyService,
-        upgrader:     upgrader,
+		upgrader:     upgrader,
 	}
 }
 
@@ -34,22 +34,22 @@ func (h *JoinPartyHandler) Handler() func(http.ResponseWriter, *http.Request) {
 		id := r.URL.Query().Get("party_id")
 		username := r.URL.Query().Get("username")
 
-        pt, newUser, err := h.partyService.PrepareForEntry(id, username)
+		pt, newUser, err := h.partyService.PrepareForEntry(id, username)
 
-        if err != nil {
-            w.WriteHeader(http.StatusBadRequest)
-            w.Write(convertion.StringToBytes(err.Error()))
-            return
-        }
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write(convertion.StringToBytes(err.Error()))
+			return
+		}
 
-        socket, err := h.upgrader.Upgrade(w, r)
-        pt.AddConn(newUser.ID, socket)
+		socket, err := h.upgrader.Upgrade(w, r)
+		pt.AddConn(newUser.ID, socket)
 
-        socket.Session().Store("party", pt)
-        socket.Session().Store("user", newUser)
+		socket.Session().Store("party", pt)
+		socket.Session().Store("user", newUser)
 
-        socket.ReadLoop()
+		socket.ReadLoop()
 
-        h.partyService.RemovePartyIfEmpty(pt)
+		h.partyService.RemovePartyIfEmpty(pt)
 	}
 }

@@ -1,9 +1,9 @@
 package user
 
 import (
-    "testing"
 	"github.com/json-iterator/go"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestUser_ToJSON(t *testing.T) {

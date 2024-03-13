@@ -29,29 +29,29 @@ func (h *FindPartyHandler) Handler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id := r.URL.Query().Get("id")
 
-        if id == "" {
-            w.WriteHeader(http.StatusBadRequest)
-            w.Write(convertion.StringToBytes("id is required"))
-            return
-        }
+		if id == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write(convertion.StringToBytes("id is required"))
+			return
+		}
 
 		pt, err := h.partyService.FindParty(id)
 
 		if err != nil {
 			w.WriteHeader(http.StatusNotFound)
-            w.Write(convertion.StringToBytes(err.Error()))
+			w.Write(convertion.StringToBytes(err.Error()))
 			return
 		}
 
 		w.WriteHeader(http.StatusCreated)
 
-        ptJSON, err := pt.ToJSON() 
+		ptJSON, err := pt.ToJSON()
 
-        if err != nil {
-            w.WriteHeader(http.StatusInternalServerError)
-            w.Write(convertion.StringToBytes(err.Error()))
-            return
-        }
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write(convertion.StringToBytes(err.Error()))
+			return
+		}
 
 		w.Write(ptJSON)
 	}
